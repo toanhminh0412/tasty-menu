@@ -16,6 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Font Awesome */}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+      </head>
       <body className={inter.className}>
         <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -50,9 +54,10 @@ export default function RootLayout({
           </div>
           </div>
         </nav>
-        <main className="pt-20 bg-white min-w-screen min-h-screen">
+        <main className="pt-18 bg-white min-w-screen min-h-screen">
           {children}
         </main>
+        {/* Flowbite */}
         <script src="/flowbite/flowbite.min.js" async></script>
       </body>
     </html>

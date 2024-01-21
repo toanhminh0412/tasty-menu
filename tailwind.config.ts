@@ -14,6 +14,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      spacing: {
+        '17': '4.25rem',
+        '18': '4.5rem',
+      }
     },
   },
   plugins: [
