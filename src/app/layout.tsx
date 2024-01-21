@@ -53,7 +53,7 @@ export default function RootLayout({
         <main className="pt-20 bg-white min-w-screen min-h-screen">
           {children}
         </main>
-        <script src="/flowbite/flowbite.min.js"></script>
+        <script src="/flowbite/flowbite.min.js" async></script>
       </body>
     </html>
   );
