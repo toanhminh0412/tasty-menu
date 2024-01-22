@@ -72,7 +72,7 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
                         </label>
                         <form className="mt-4">
                             <div>
-                                <label htmlFor="seller_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seller/Business' name</label>
+                                <label htmlFor="seller_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seller/Business&apos; name</label>
                                 <input 
                                     type="text" 
                                     id="seller_name" 

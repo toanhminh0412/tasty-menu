@@ -111,7 +111,7 @@ export default function MenuEditor() {
                 {/* Menu content */}
                 <div className="mt-6 pr-10">
                     {menuItems.map((item) => (
-                    <div className="flex flex-row gap-4 my-3">
+                    <div key={item.id} className="flex flex-row gap-4 my-3">
                         <div className="w-[80%]">
                             <div className="flex flex-row justify-between">
                                 <h5 className="text-xl font-bold dark:text-white">{item.name}</h5>
