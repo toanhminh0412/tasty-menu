@@ -1,7 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useContext, useState } from "react";
 import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
+import { truncateString } from "../helpers";
 
 export default function Sidebar() {
     const [tab, setTab] = useState<string>("main");
@@ -160,6 +162,8 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
 }
 
 const MenuSidebar = ({ setTab } : SidebarProps) => {
+    const {menuItems, setMenuItems} = useContext(MenuItemsContext);
+
     return (
         <aside id="logo-sidebar" className="fixed top-18 left-0 z-20 w-72 h-screen pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
             <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
@@ -173,6 +177,30 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
                         </label>
                     </li>
                 </ul>
+                <div className="flow-root">
+                    <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
+                        {menuItems.map(item => (
+                        <li key={item.id} className="py-3 sm:py-4">
+                            <div className="flex items-center">
+                                <div className="flex-shrink-0">
+                                    <Image width={100} height={100} className="w-8 h-8 rounded-full object-cover" src={item.image} alt="Neil image"/>
+                                </div>
+                                <div className="flex-1 min-w-0 ms-4">
+                                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                        {item.name}
+                                    </p>
+                                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                                        {item.description}
+                                    </p>
+                                </div>
+                                <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                    ${item.price.toFixed(2)}
+                                </div>
+                            </div>
+                        </li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         </aside>
     )
