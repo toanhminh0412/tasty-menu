@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
 
 export default function Sidebar() {
     const [tab, setTab] = useState<string>("main");
@@ -24,7 +25,7 @@ export default function Sidebar() {
     }
 }
 
-type SidebarProps = {
+interface SidebarProps {
     setTab : (value: string) => void
 }
 
@@ -56,6 +57,8 @@ const MainSidebar = ({ setTab } : SidebarProps) => {
 }
 
 const InfoSidebar = ({ setTab } : SidebarProps) => {
+    const { sellerInfo, setSellerInfo } = useContext(SellerInfoContext);
+
     return (
         <aside id="logo-sidebar" className="fixed top-18 left-0 z-20 w-72 h-screen pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
             <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
@@ -70,27 +73,83 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
                         <form className="mt-4">
                             <div>
                                 <label htmlFor="seller_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Seller/Business' name</label>
-                                <input type="text" id="seller_name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. McDonald"/>
+                                <input 
+                                    type="text" 
+                                    id="seller_name" 
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    placeholder="e.g. McDonald" 
+                                    value={sellerInfo.name}
+                                    onChange={e => setSellerInfo({
+                                        ...sellerInfo,
+                                        name: e.target.value
+                                    })}/>
                             </div>
                             <div className="mt-3">
                                 <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                                <input type="text" id="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. 123 Jane St"/>
+                                <input 
+                                    type="text" 
+                                    id="address" 
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    placeholder="e.g. 123 Jane St"
+                                    value={sellerInfo.address}
+                                    onChange={e => setSellerInfo({
+                                        ...sellerInfo,
+                                        address: e.target.value
+                                    })}/>
                             </div>
                             <div className="mt-3">
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                <input type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="e.g. seller@example.com"/>
+                                <input 
+                                    type="email" 
+                                    id="email" 
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    placeholder="e.g. seller@example.com"
+                                    value={sellerInfo.email}
+                                    onChange={e => setSellerInfo({
+                                        ...sellerInfo,
+                                        email: e.target.value
+                                    })}/>
                             </div>
                             <div className="mt-3">
                                 <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                                <input type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1234567890" pattern="[0-9]{10}"/>
+                                <input 
+                                    type="tel" 
+                                    id="phone" 
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    placeholder="1234567890" 
+                                    pattern="[0-9]{10}"
+                                    value={sellerInfo.phone}
+                                    onChange={e => setSellerInfo({
+                                        ...sellerInfo,
+                                        phone: e.target.value
+                                    })}/>
                             </div>
                             <div className="mt-3">
                                 <label htmlFor="short_description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Short description</label>
-                                <textarea id="short_description" rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Briefly describe your food..."></textarea>
+                                <textarea 
+                                    id="short_description" 
+                                    rows={4} 
+                                    className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    placeholder="Briefly describe your food..."
+                                    onChange={e => setSellerInfo({
+                                        ...sellerInfo,
+                                        short_description: e.target.value
+                                    })}>
+                                {sellerInfo.short_description}    
+                                </textarea>
                             </div>
                             <div className="mt-3">
                                 <label htmlFor="website" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website URL</label>
-                                <input type="url" id="website" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="mywebsite.example"/>
+                                <input 
+                                    type="url" 
+                                    id="website"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                                    placeholder="mywebsite.example"
+                                    value={sellerInfo.website}
+                                    onChange={e => setSellerInfo({
+                                        ...sellerInfo,
+                                        website: e.target.value
+                                    })}/>
                             </div>
                         </form>
                     </li>
