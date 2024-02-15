@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useContext, useState } from "react";
 import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
-import { truncateString } from "../helpers";
 import { MenuItem } from "./MenuEditor";
 
 export default function Sidebar() {
@@ -166,7 +165,7 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
     const {menuItems, setMenuItems} = useContext(MenuItemsContext);
 
     return (
-        <aside id="logo-sidebar" className="fixed top-18 left-0 z-20 w-72 h-screen pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+        <aside id="logo-sidebar" className="fixed top-18 left-0 z-20 w-72 min-h-screen overflow-scroll pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
             <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
                 <ul className="space-y-2 font-medium">
                     <li>
@@ -180,7 +179,7 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
                 </ul>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {menuItems.map(item => <SidebarMenuItem key={item.id} item={item}/>)}
+                        {menuItems.map((item, itemInd) => <SidebarMenuItem key={item.id} item={item} itemInd={itemInd}/>)}
                     </ul>
                 </div>
             </div>
@@ -188,9 +187,78 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
     )
 }
 
-const SidebarMenuItem = ({ item } : { item: MenuItem }) => {
+const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }) => {
+    const { menuItems, setMenuItems } = useContext(MenuItemsContext);
+    const [editState, setEditState] = useState<boolean>(false);
+
+    const onItemNameChange = (e: React.ChangeEvent<HTMLInputElement>, itemInd: number) => {
+        const newMenuItems = [...menuItems];
+        newMenuItems[itemInd].name = e.target.value;
+        setMenuItems(newMenuItems);
+    }
+
+    const onItemPriceChange = (e: React.ChangeEvent<HTMLInputElement>, itemInd: number) => {
+        const newMenuItems = [...menuItems];
+        newMenuItems[itemInd].price = parseFloat(e.target.value);
+        setMenuItems(newMenuItems);
+    }
+
+    const onItemDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>, itemInd: number) => {
+        const newMenuItems = [...menuItems];
+        newMenuItems[itemInd].description = e.target.value;
+        setMenuItems(newMenuItems);
+    }
+
+    if (editState) 
     return (
-        <li className="py-3 sm:py-4 px-2 hover:bg-slate-100 duration-100 cursor-default">
+        <li className="py-3 sm:py-4 px-2 duration-100 cursor-default">
+            <form onSubmit={() => setEditState(!editState)}>
+                <div className="mb-3 text-center">
+                    <Image width={100} height={100} className="w-[100px] h-[100px] rounded-md object-cover mx-auto" src={item.image} alt="Neil image"/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="item_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item name</label>
+                    <input 
+                        type="text" 
+                        id="item_name" 
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        placeholder="e.g. Fried chicken" 
+                        value={item.name}
+                        onChange={e => onItemNameChange(e, itemInd)}/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="item_price" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item price</label>
+                    <input 
+                        type="number" 
+                        id="item_price" 
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        placeholder="e.g. $60.00" 
+                        value={item.price.toFixed(2)}
+                        onChange={e => onItemPriceChange(e, itemInd)}/>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="item_description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item description</label>
+                    <textarea 
+                        id="item_description" 
+                        rows={4} 
+                        className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                        placeholder="Briefly describe your food..."
+                        onChange={e => onItemDescriptionChange(e, itemInd)}>
+                    {item.description}    
+                    </textarea>
+                </div>
+                <div className="text-right">
+                    <input 
+                        type="submit"
+                        value="Done"
+                        className="ml-auto px-3 py-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"/>
+                </div>
+            </form>
+        </li>
+    )
+
+    return (
+        <li className="py-3 sm:py-4 px-2 hover:bg-slate-100 duration-100 cursor-default" onClick={() => setEditState(!editState)}>
             <div className="flex items-center">
                 <div className="flex-shrink-0">
                     <Image width={100} height={100} className="w-8 h-8 rounded-full object-cover" src={item.image} alt="Neil image"/>
