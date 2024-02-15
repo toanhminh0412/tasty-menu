@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useContext, useState } from "react";
 import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
 import { truncateString } from "../helpers";
+import { MenuItem } from "./MenuEditor";
 
 export default function Sidebar() {
     const [tab, setTab] = useState<string>("main");
@@ -179,29 +180,33 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
                 </ul>
                 <div className="flow-root">
                     <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                        {menuItems.map(item => (
-                        <li key={item.id} className="py-3 sm:py-4">
-                            <div className="flex items-center">
-                                <div className="flex-shrink-0">
-                                    <Image width={100} height={100} className="w-8 h-8 rounded-full object-cover" src={item.image} alt="Neil image"/>
-                                </div>
-                                <div className="flex-1 min-w-0 ms-4">
-                                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                        {item.name}
-                                    </p>
-                                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
-                                        {item.description}
-                                    </p>
-                                </div>
-                                <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                    ${item.price.toFixed(2)}
-                                </div>
-                            </div>
-                        </li>
-                        ))}
+                        {menuItems.map(item => <SidebarMenuItem key={item.id} item={item}/>)}
                     </ul>
                 </div>
             </div>
         </aside>
+    )
+}
+
+const SidebarMenuItem = ({ item } : { item: MenuItem }) => {
+    return (
+        <li className="py-3 sm:py-4 px-2 hover:bg-slate-100 duration-100 cursor-default">
+            <div className="flex items-center">
+                <div className="flex-shrink-0">
+                    <Image width={100} height={100} className="w-8 h-8 rounded-full object-cover" src={item.image} alt="Neil image"/>
+                </div>
+                <div className="flex-1 min-w-0 ms-4">
+                    <p className="text-sm font-medium text-gray-900 truncate dark:text-white">
+                        {item.name}
+                    </p>
+                    <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                        {item.description}
+                    </p>
+                </div>
+                <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                    ${item.price.toFixed(2)}
+                </div>
+            </div>
+        </li>
     )
 }

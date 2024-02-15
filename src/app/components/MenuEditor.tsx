@@ -13,7 +13,7 @@ interface SellerInfo {
     short_description: string
 }
 
-interface MenuItem {
+export interface MenuItem {
     id: number,
     name: string,
     price: number,
