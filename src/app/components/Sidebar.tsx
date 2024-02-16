@@ -191,6 +191,11 @@ const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }
     const { menuItems, setMenuItems } = useContext(MenuItemsContext);
     const [editState, setEditState] = useState<boolean>(false);
 
+    // Events on the parent element will not be triggered on the child element
+    const stopPropagation = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    }
+
     const onItemNameChange = (e: React.ChangeEvent<HTMLInputElement>, itemInd: number) => {
         const newMenuItems = [...menuItems];
         newMenuItems[itemInd].name = e.target.value;
@@ -211,10 +216,10 @@ const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }
 
     if (editState) 
     return (
-        <li className="py-3 sm:py-4 px-2 duration-100 cursor-default">
+        <li className="py-3 sm:py-4 px-2 duration-100 cursor-default hover:bg-slate-100" onClick={() => setEditState(!editState)}>
             <form onSubmit={() => setEditState(!editState)}>
                 <div className="mb-3 text-center">
-                    <Image width={100} height={100} className="w-[100px] h-[100px] rounded-md object-cover mx-auto" src={item.image} alt="Neil image"/>
+                    <Image onClick={stopPropagation} width={100} height={100} className="w-[100px] h-[100px] rounded-md object-cover mx-auto" src={item.image} alt="Neil image"/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="item_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item name</label>
@@ -224,6 +229,7 @@ const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                         placeholder="e.g. Fried chicken" 
                         value={item.name}
+                        onClick={stopPropagation}
                         onChange={e => onItemNameChange(e, itemInd)}/>
                 </div>
                 <div className="mb-3">
@@ -234,6 +240,7 @@ const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                         placeholder="e.g. $60.00" 
                         value={item.price.toFixed(2)}
+                        onClick={stopPropagation}
                         onChange={e => onItemPriceChange(e, itemInd)}/>
                 </div>
                 <div className="mb-3">
@@ -243,6 +250,7 @@ const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }
                         rows={4} 
                         className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                         placeholder="Briefly describe your food..."
+                        onClick={stopPropagation}
                         onChange={e => onItemDescriptionChange(e, itemInd)}>
                     {item.description}    
                     </textarea>
