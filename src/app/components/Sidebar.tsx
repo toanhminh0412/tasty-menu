@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useContext, useState } from "react";
+import { ChangeEventHandler, useContext, useEffect, useState } from "react";
 import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
 import { MenuItem } from "./MenuEditor";
 
@@ -190,6 +190,7 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
 const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }) => {
     const { menuItems, setMenuItems } = useContext(MenuItemsContext);
     const [editState, setEditState] = useState<boolean>(false);
+    const [previewImageSrc, setPreviewImageSrc] = useState<string>();
 
     const onItemNameChange = (e: React.ChangeEvent<HTMLInputElement>, itemInd: number) => {
         const newMenuItems = [...menuItems];
@@ -207,6 +208,16 @@ const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }
         const newMenuItems = [...menuItems];
         newMenuItems[itemInd].description = e.target.value;
         setMenuItems(newMenuItems);
+    }
+
+    const handleChangeFile: ChangeEventHandler<HTMLInputElement> = (e) => {
+        const file = e.target.files?.[0]
+
+        if (!file) {
+            return
+        }
+
+        setPreviewImageSrc()
     }
 
     if (editState) 
