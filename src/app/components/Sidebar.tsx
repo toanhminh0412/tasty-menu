@@ -33,8 +33,8 @@ interface SidebarProps {
 
 const MainSidebar = ({ setTab } : SidebarProps) => {
     return (
-        <aside id="logo-sidebar" className="fixed top-18 left-0 z-20 w-72 h-screen pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-            <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <aside id="logo-sidebar" className="fixed top-18 left-0 bottom-0 z-20 w-72 overflow-y-auto pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+            <div className="h-full px-3 pb-4 bg-white dark:bg-gray-800">
                 <ul className="space-y-2 font-medium">
                     <li>
                         <label 
@@ -62,8 +62,8 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
     const { sellerInfo, setSellerInfo } = useContext(SellerInfoContext);
 
     return (
-        <aside id="logo-sidebar" className="fixed top-18 left-0 z-20 w-72 h-screen pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-            <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <aside id="logo-sidebar" className="fixed top-18 left-0 bottom-0 z-20 w-72 overflow-y-auto pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+            <div className="h-full px-3 pb-4 bg-white dark:bg-gray-800">
                 <ul className="space-y-2 font-medium">
                     <li>
                         <label 
@@ -165,8 +165,8 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
     const {menuItems, setMenuItems} = useContext(MenuItemsContext);
 
     return (
-        <aside id="logo-sidebar" className="fixed top-18 left-0 z-20 w-72 min-h-screen overflow-scroll pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
-            <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+        <aside id="logo-sidebar" className="fixed top-18 left-0 bottom-0 z-20 w-72 overflow-y-auto pt-4 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+            <div className="h-full px-3 pb-4 bg-white dark:bg-gray-800">
                 <ul className="space-y-2 font-medium">
                     <li>
                         <label 
