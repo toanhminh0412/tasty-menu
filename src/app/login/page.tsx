@@ -23,10 +23,11 @@ export default function LoginPage() {
 
         // Login successfully
         if (response.ok) {
+            console.log(document.cookie)
             console.log("Login successful");
             displaySuccessMessage("Login successful. Redirecting to dashboard...");
             // Redirect to homepage
-            window.location.href = "/";
+            // window.location.href = "/";
 
         // Something wrong with Django server
         } else if (response.status === 500) {
