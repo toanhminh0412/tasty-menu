@@ -6,10 +6,13 @@ import Link from "next/link";
 import LogoutBtn from "./buttons/LogoutBtn";
 
 export default function Navbar() {
-    const [sessionId, _] = useState('');
+    const [sessionId, setSessionId] = useState<string>('');
 
     useEffect(() => {
-        const sessionId = localStorage.getItem("sessionid");
+        const storedSessionId = localStorage.getItem("sessionid");
+        if (storedSessionId && typeof storedSessionId === 'string') {
+            setSessionId(storedSessionId);
+        }
     }, []);
 
     return (
