@@ -22,13 +22,18 @@ function logout() {
     })
     .then(response => {
         if(response.ok) {
-        // Optionally clear client-side stored CSRF token if you're managing it in local storage or state
-        console.log("Logged out successfully");
-        displaySuccessMessage("Logged out successfully. Redirecting to login...");
-        window.location.href = "/login";
+            // Optionally clear client-side stored CSRF token if you're managing it in local storage or state
+            console.log("Logged out successfully");
+            displaySuccessMessage("Logged out successfully. Redirecting to login...");
+
+            // Remove CSRF token and sessionid from local storage
+            localStorage.removeItem("csrftoken");
+            localStorage.removeItem("sessionid");
+
+            window.location.href = "/login";
         } else {
-        console.error("Logout failed");
-        displayErrorMessage("Logout failed");
+            console.error("Logout failed");
+            displayErrorMessage("Logout failed");
         }
     })
     .catch(error => console.error('Error:', error));

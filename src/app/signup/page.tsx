@@ -30,6 +30,11 @@ export default function SignupPage() {
         if (response.ok) {
             console.log("Signup successful");
             displaySuccessMessage("Signup successful. Redirecting to dashboard...");
+
+            // Store CSRF token and sessionid in local storage
+            localStorage.setItem("csrftoken", data.csrftoken);
+            localStorage.setItem("sessionid", data.sessionid);
+
             // Redirect to homepage
             window.location.href = "/";
 

@@ -25,6 +25,11 @@ export default function LoginPage() {
         if (response.ok) {
             console.log("Login successful");
             displaySuccessMessage("Login successful. Redirecting to dashboard...");
+
+            // Store CSRF token and sessionid in local storage
+            localStorage.setItem("csrftoken", data.csrftoken);
+            localStorage.setItem("sessionid", data.sessionid);
+
             // Redirect to homepage
             window.location.href = "/";
 
