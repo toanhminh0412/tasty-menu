@@ -17,7 +17,7 @@ function logout() {
         credentials: 'include', // Important to include cookies
         headers: {
             "Content-Type": "application/json",
-            'X-CSRFToken': getCookie('csrftoken'),
+            'X-CSRFToken': localStorage.getItem("csrftoken") || getCookie("csrftoken"),
         },
     })
     .then(response => {
