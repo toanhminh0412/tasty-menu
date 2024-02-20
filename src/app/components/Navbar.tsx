@@ -1,10 +1,16 @@
 "use client";
 
+import { useState, useEffect } from "react";
+
 import Link from "next/link";
 import LogoutBtn from "./buttons/LogoutBtn";
 
 export default function Navbar() {
-    const sessionId = localStorage.getItem("sessionid");
+    const [sessionId, _] = useState('');
+
+    useEffect(() => {
+        const sessionId = localStorage.getItem("sessionid");
+    }, []);
 
     return (
         <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
