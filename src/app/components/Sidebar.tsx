@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ChangeEventHandler, useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
 import { MenuItem } from "./MenuEditor";
 import ImageUploadPreviewer from "./ui/ImageUploadPreviewer";
