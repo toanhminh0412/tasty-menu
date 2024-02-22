@@ -1,8 +1,9 @@
 "use client";
 
-import Link from "next/link";
 
-import { displaySuccessMessage } from "../components/toasts/SuccessMessageToast";
+import Link from "next/link";
+import { signIn } from "next-auth/react";
+
 import { displayErrorMessage } from "../components/toasts/ErrorMessageToast";
 
 export default function LoginPage() {
@@ -10,39 +11,12 @@ export default function LoginPage() {
         e.preventDefault();
         const email = e.target.email.value;
         const password = e.target.password.value;
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/login`, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-        });
-        const data = await response.json();
-        console.log(data);
-
-        // Login successfully
-        if (response.ok) {
-            console.log("Login successful");
-            displaySuccessMessage("Login successful. Redirecting to dashboard...");
-
-            // Store CSRF token and sessionid in local storage
-            localStorage.setItem("csrftoken", data.csrftoken);
-            localStorage.setItem("sessionid", data.sessionid);
-
-            // Redirect to homepage
-            window.location.href = "/";
-
-        // Something wrong with Django server
-        } else if (response.status === 500) {
-            console.log("Internal server error");
-            displayErrorMessage("Server error. Please contact our team for support. We are sorry for this inconvenience!");
-        }
+        const signInResponse = await signIn('credentials', { email, password, callbackUrl: "/", redirect: false });
         
-        // Login failed
-        else {
-            console.log("Login failed");
-            displayErrorMessage(data.error);
+        if (signInResponse && signInResponse.ok) {
+            window.location.href = signInResponse.url ? signInResponse.url : "/";
+        } else {
+            displayErrorMessage("Invalid email or password");
         }
     }
 

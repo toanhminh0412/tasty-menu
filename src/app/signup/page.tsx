@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
-import { displaySuccessMessage } from "../components/toasts/SuccessMessageToast";
 import { displayErrorMessage } from "../components/toasts/ErrorMessageToast";
 
 export default function SignupPage() {
@@ -15,38 +15,17 @@ export default function SignupPage() {
             displayErrorMessage("Passwords do not match");
             return;
         }
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup`, {
+        const response = await fetch('/api/auth/credentials/signup', {
             method: "POST",
-            credentials: "include",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ email, password }),
         });
         const data = await response.json();
-        console.log(data);
-
-        // Signup successfully
-        if (response.ok) {
-            console.log("Signup successful");
-            displaySuccessMessage("Signup successful. Redirecting to dashboard...");
-
-            // Store CSRF token and sessionid in local storage
-            localStorage.setItem("csrftoken", data.csrftoken);
-            localStorage.setItem("sessionid", data.sessionid);
-
-            // Redirect to homepage
-            window.location.href = "/";
-
-        // Something wrong with Django server
-        } else if (response.status === 500) {
-            console.log("Internal server error");
-            displayErrorMessage("Server error. Please contact our team for support. We are sorry for this inconvenience!");
-        }
-        
-        // Signup failed
-        else {
-            console.log("Signup failed");
+        if (response.status === 201) {
+            signIn('credentials', { email, password, callbackUrl: "/" });
+        } else {
             displayErrorMessage(data.error);
         }
     }
