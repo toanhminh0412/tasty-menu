@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useContext, useState } from "react";
 import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
 import { MenuItem } from "./MenuEditor";
+import ImageUploadPreviewer from "./ui/ImageUploadPreviewer";
 
 export default function Sidebar() {
     const [tab, setTab] = useState<string>("main");
@@ -190,7 +191,7 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
 const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }) => {
     const { menuItems, setMenuItems } = useContext(MenuItemsContext);
     const [editState, setEditState] = useState<boolean>(false);
-
+    
     // Events on the parent element will not be triggered on the child element
     const stopPropagation = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -214,12 +215,26 @@ const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }
         setMenuItems(newMenuItems);
     }
 
+    const onImageChange = (imgSrc: string) => {
+        const newMenuItems = [...menuItems];
+        newMenuItems[itemInd].image = imgSrc;
+        setMenuItems(newMenuItems);
+        console.log(menuItems);
+        
+    }
+
     if (editState) 
     return (
-        <li className="py-3 sm:py-4 px-2 duration-100 cursor-default hover:bg-slate-100" onClick={() => setEditState(!editState)}>
+        <li className="py-3 sm:py-4 px-2 duration-100 cursor-default hover:bg-slate-100">
             <form onSubmit={() => setEditState(!editState)}>
                 <div className="mb-3 text-center">
-                    <Image onClick={stopPropagation} width={100} height={100} className="w-[100px] h-[100px] rounded-md object-cover mx-auto" src={item.image} alt="Neil image"/>
+                    {/* <Image onClick={stopPropagation} width={100} height={100} className="w-[100px] h-[100px] rounded-md object-cover mx-auto" src={item.image} alt="Neil image"/> */}
+                    <ImageUploadPreviewer 
+                        label="Food photos"
+                        onChange={onImageChange}
+                        onClick={stopPropagation}
+                        content={item.image}
+                    />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="item_name" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item name</label>
