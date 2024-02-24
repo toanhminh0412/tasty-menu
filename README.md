@@ -14,7 +14,7 @@ To get the `local_mongodb_url`, you will need to download a [MongoDB Community](
 
 A shell might look as follow:
 
-    mongosh                                           
+    $ mongosh                                           
     Current Mongosh Log ID: 65d9918a14c0b0d154a315a1
     Connecting to:          mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.1.5
     (node:1785) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
