@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/container-queries": "^0.1.1",
     "bcrypt": "^5.1.1",
     "flowbite": "^2.2.1",
     "mongoose": "^8.1.3",

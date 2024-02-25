@@ -17,11 +17,15 @@ const config: Config = {
       spacing: {
         '17': '4.25rem',
         '18': '4.5rem',
+      },
+      inset: {
+        '18': '4.5rem',
       }
     },
   },
   plugins: [
-    require('flowbite/plugin')
+    require('flowbite/plugin'),
+    require('@tailwindcss/container-queries'),
   ],
 };
 export default config;
