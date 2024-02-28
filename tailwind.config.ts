@@ -26,6 +26,7 @@ const config: Config = {
   plugins: [
     require('flowbite/plugin'),
     require('@tailwindcss/container-queries'),
+    require('@tailwindcss/typography'),
   ],
 };
 export default config;
