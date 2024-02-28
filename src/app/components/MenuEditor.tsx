@@ -106,7 +106,7 @@ const MenuEditorContent = () => {
             <>
                 <Sidebar/>
                 <div className="ml-72">
-                    <div style={{ zoom: "80%" }}>
+                    <div style={{ zoom: "90%" }}>
                         <Menu1 sellerInfo={sellerInfo} menuItems={menuItems}/>
                     </div>
                 </div>
