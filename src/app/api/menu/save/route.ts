@@ -1,4 +1,4 @@
-import { authOptions } from "../../auth/[...nextauth]/route";
+import authOptions from "../../auth/[...nextauth]/options";
 import { getServerSession } from "next-auth";
 
 import dbConnect from "@/app/lib/dbConnect";
