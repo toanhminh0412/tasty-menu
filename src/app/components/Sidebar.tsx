@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 
 import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
 import MenuEditorModeControlBtns from "./buttons/MenuEditorModeControlBtns";
-import { MenuItem } from "./MenuEditor";
+import { MenuItem } from "../data/interfaces";
 import ImageUploadPreviewer from "./ui/ImageUploadPreviewer";
 
 export default function Sidebar() {

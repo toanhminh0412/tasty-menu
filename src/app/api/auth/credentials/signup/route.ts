@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-import { SALT_ROUNDS } from "@/app/contants";
+import { SALT_ROUNDS } from "@/app/data/contants";
 import dbConnect from "@/app/lib/dbConnect";
 import { User } from "@/app/models/User";
 
