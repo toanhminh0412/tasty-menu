@@ -15,14 +15,12 @@ const AllMenusContext = createContext<any>([]);
 export default function Dashboard() {
     const [activeTab, setActiveTab] = useState<string>("menus");
     const [allMenus, setAllMenus] = useState<Menu[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
 
     // Get all menus owned by the currently logged in user
     useEffect(() => {
         const getUserMenus = async () => {
             const res = await fetch("/api/menu/getAll");
             const data = await res.json();
-            setLoading(false);
             
             if (res.ok) {
                 setAllMenus(data.menus);
@@ -34,10 +32,6 @@ export default function Dashboard() {
 
         getUserMenus();
     }, [])
-
-    if (loading) {
-        return <h1>Loading...</h1>
-    }
 
     return (
         <ActiveTabContext.Provider value={{ activeTab, setActiveTab }}>
