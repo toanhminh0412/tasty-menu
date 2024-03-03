@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { defaultSellerInfo, defaultMenuItems } from "@/app/data/defaultMenu1";
+import defaultMenu1 from "@/app/data/defaultMenu1";
 
 import { displaySuccessMessage } from "../toasts/SuccessMessageToast";
 import { displayErrorMessage } from "../toasts/ErrorMessageToast";
@@ -18,7 +18,7 @@ export default function CreateNewMenuBtn() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ menu: { sellerInfo: defaultSellerInfo, menuItems: defaultMenuItems } })
+            body: JSON.stringify({ menu: { sellerInfo: defaultMenu1.sellerInfo, menuItems: defaultMenu1.menuItems } })
         });
         const data = await response.json();
         console.log(data);

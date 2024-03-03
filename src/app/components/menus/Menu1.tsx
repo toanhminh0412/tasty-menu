@@ -1,38 +1,38 @@
 import Image from "next/image";
 
-import { SellerInfo, MenuItem } from "@/app/data/interfaces";
+import { Menu } from "@/app/data/interfaces";
 
-export default function Menu1({ sellerInfo, menuItems }: { sellerInfo: SellerInfo, menuItems: MenuItem[] }) {
+export default function Menu1({ menu }: { menu: Menu }) {
     return (
         <div className="p-4 @5xl:p-20 bg-yellow-50 min-h-screen text-black">
             {/* Seller's information */}
-            {sellerInfo.name ? <h5 className="text-lg @5xl:text-xl font-bold">{sellerInfo.name}</h5> : null}
+            {menu.sellerInfo.name ? <h5 className="text-lg @5xl:text-xl font-bold">{menu.sellerInfo.name}</h5> : null}
             <h1 className="mb-4 text-3xl @4xl:text-5xl @5xl:text-6xl font-extrabold leading-none tracking-tight text-gray-900 mt-4">Menu</h1>
             <div className="flex flex-row flex-wrap gap-x-4 gap-y-2 @5xl:gap-10 text-sm @4xl:text-lg">
-            {sellerInfo.address ? <div>
+            {menu.sellerInfo.address ? <div>
                 <i className="fa-solid fa-location-dot text-orange-500 mr-2"></i>
-                <label className="text-slate-500">{sellerInfo.address}</label>
+                <label className="text-slate-500">{menu.sellerInfo.address}</label>
             </div> : null}
-            {sellerInfo.email ? <div>
+            {menu.sellerInfo.email ? <div>
                 <i className="fa-solid fa-envelope text-orange-500 mr-2"></i>
-                <label className="text-slate-500">{sellerInfo.email}</label>
+                <label className="text-slate-500">{menu.sellerInfo.email}</label>
             </div> : null}
-            {sellerInfo.phone ? <div>
+            {menu.sellerInfo.phone ? <div>
                 <i className="fa-solid fa-phone text-orange-500 mr-2"></i>
-                <label className="text-slate-500">{sellerInfo.phone}</label>
+                <label className="text-slate-500">{menu.sellerInfo.phone}</label>
             </div> : null}
-            {sellerInfo.website ? <div>
+            {menu.sellerInfo.website ? <div>
                 <i className="fa-solid fa-globe text-orange-500 mr-2"></i>
-                <label className="text-slate-500">{sellerInfo.website}</label>
+                <label className="text-slate-500">{menu.sellerInfo.website}</label>
             </div> : null}
         </div>
-        {sellerInfo.short_description ? <blockquote className="text-sm @4xl:text-base italic font-light text-slate-700 w-[70%] mt-4">
-            <p>{sellerInfo.short_description}</p>
+        {menu.sellerInfo.short_description ? <blockquote className="text-sm @4xl:text-base italic font-light text-slate-700 w-[70%] mt-4">
+            <p>{menu.sellerInfo.short_description}</p>
         </blockquote> : null}
 
         {/* Menu content */}
         <div className="mt-6">
-            {menuItems.map((item) => (
+            {menu.menuItems.map((item) => (
             <div key={item.id} className="flex flex-row gap-4 my-3">
                 <div className="w-[90%]">
                     <div className="flex flex-row justify-between">

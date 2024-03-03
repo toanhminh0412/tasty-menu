@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useContext, useState } from "react";
 
 
-import { SellerInfoContext, MenuItemsContext } from "./MenuEditor";
+import { MenuContext } from "./MenuEditor";
 import MenuEditorModeControlBtns from "./buttons/MenuEditorModeControlBtns";
 import { MenuItem } from "../data/interfaces";
 import ImageUploadPreviewer from "./ui/ImageUploadPreviewer";
@@ -70,7 +70,7 @@ const MainSidebar = ({ setTab } : SidebarProps) => {
 }
 
 const InfoSidebar = ({ setTab } : SidebarProps) => {
-    const { sellerInfo, setSellerInfo } = useContext(SellerInfoContext);
+    const { menu, setMenu } = useContext(MenuContext);
 
     return (
         <ul className="space-y-2 font-medium">
@@ -89,11 +89,16 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
                             id="seller_name" 
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             placeholder="e.g. McDonald" 
-                            value={sellerInfo.name}
-                            onChange={e => setSellerInfo({
-                                ...sellerInfo,
-                                name: e.target.value
-                            })}/>
+                            value={menu.sellerInfo.name}
+                            onChange={e => {
+                                let sellerInfo = menu.sellerInfo;
+                                sellerInfo.name = e.target.value;
+                                setMenu({
+                                    ...menu,
+                                    sellerInfo: sellerInfo
+                                })
+                            
+                            }}/>
                     </div>
                     <div className="mt-3">
                         <label htmlFor="address" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
@@ -102,11 +107,15 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
                             id="address" 
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             placeholder="e.g. 123 Jane St"
-                            value={sellerInfo.address}
-                            onChange={e => setSellerInfo({
-                                ...sellerInfo,
-                                address: e.target.value
-                            })}/>
+                            value={menu.sellerInfo.address}
+                            onChange={e => {
+                                let sellerInfo = menu.sellerInfo;
+                                sellerInfo.address = e.target.value;
+                                setMenu({
+                                    ...menu,
+                                    sellerInfo: sellerInfo
+                                })
+                            }}/>
                     </div>
                     <div className="mt-3">
                         <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
@@ -115,11 +124,15 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
                             id="email" 
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             placeholder="e.g. seller@example.com"
-                            value={sellerInfo.email}
-                            onChange={e => setSellerInfo({
-                                ...sellerInfo,
-                                email: e.target.value
-                            })}/>
+                            value={menu.sellerInfo.email}
+                            onChange={e => {
+                                let sellerInfo = menu.sellerInfo;
+                                sellerInfo.email = e.target.value;
+                                setMenu({
+                                    ...menu,
+                                    sellerInfo: sellerInfo
+                                })
+                            }}/>
                     </div>
                     <div className="mt-3">
                         <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
@@ -129,11 +142,16 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             placeholder="1234567890" 
                             pattern="[0-9]{10}"
-                            value={sellerInfo.phone}
-                            onChange={e => setSellerInfo({
-                                ...sellerInfo,
-                                phone: e.target.value
-                            })}/>
+                            value={menu.sellerInfo.phone}
+                            onChange={e => {
+                                let sellerInfo = menu.sellerInfo;
+                                sellerInfo.phone = e.target.value;
+                                setMenu({
+                                    ...menu,
+                                    sellerInfo: sellerInfo
+                                })
+                            
+                            }}/>
                     </div>
                     <div className="mt-3">
                         <label htmlFor="short_description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Short description</label>
@@ -142,11 +160,16 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
                             rows={4} 
                             className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             placeholder="Briefly describe your food..."
-                            onChange={e => setSellerInfo({
-                                ...sellerInfo,
-                                short_description: e.target.value
-                            })}>
-                        {sellerInfo.short_description}    
+                            onChange={e => {
+                                let sellerInfo = menu.sellerInfo;
+                                sellerInfo.short_description = e.target.value;
+                                setMenu({
+                                    ...menu,
+                                    sellerInfo: sellerInfo
+                                })
+                            
+                            }}>
+                        {menu.sellerInfo.short_description}    
                         </textarea>
                     </div>
                     <div className="mt-3">
@@ -156,11 +179,16 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
                             id="website"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                             placeholder="mywebsite.example"
-                            value={sellerInfo.website}
-                            onChange={e => setSellerInfo({
-                                ...sellerInfo,
-                                website: e.target.value
-                            })}/>
+                            value={menu.sellerInfo.website}
+                            onChange={e => {
+                                let sellerInfo = menu.sellerInfo;
+                                sellerInfo.website = e.target.value;
+                                setMenu({
+                                    ...menu,
+                                    sellerInfo: sellerInfo
+                                })
+                            
+                            }}/>
                     </div>
                 </form>
             </li>
@@ -169,7 +197,7 @@ const InfoSidebar = ({ setTab } : SidebarProps) => {
 }
 
 const MenuSidebar = ({ setTab } : SidebarProps) => {
-    const {menuItems, setMenuItems} = useContext(MenuItemsContext);
+    const { menu, setMenu } = useContext(MenuContext);
 
     return (
         <>
@@ -185,7 +213,7 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
             </ul>
             <div className="flow-root">
                 <ul role="list" className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {menuItems.map((item, itemInd) => <SidebarMenuItem key={item.id} item={item} itemInd={itemInd}/>)}
+                    {menu.menuItems.map((item, itemInd) => <SidebarMenuItem key={item.id} item={item} itemInd={itemInd}/>)}
                 </ul>
             </div>
         </>
@@ -193,7 +221,7 @@ const MenuSidebar = ({ setTab } : SidebarProps) => {
 }
 
 const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }) => {
-    const { menuItems, setMenuItems } = useContext(MenuItemsContext);
+    const { menu, setMenu } = useContext(MenuContext);
     const [editState, setEditState] = useState<boolean>(false);
     
     // Events on the parent element will not be triggered on the child element
@@ -202,29 +230,27 @@ const SidebarMenuItem = ({ item, itemInd } : { item: MenuItem, itemInd: number }
     }
 
     const onItemNameChange = (e: React.ChangeEvent<HTMLInputElement>, itemInd: number) => {
-        const newMenuItems = [...menuItems];
+        let newMenuItems = [...menu.menuItems];
         newMenuItems[itemInd].name = e.target.value;
-        setMenuItems(newMenuItems);
+        setMenu({...menu, menuItems: newMenuItems});
     }
 
     const onItemPriceChange = (e: React.ChangeEvent<HTMLInputElement>, itemInd: number) => {
-        const newMenuItems = [...menuItems];
+        let newMenuItems = [...menu.menuItems];
         newMenuItems[itemInd].price = parseFloat(e.target.value);
-        setMenuItems(newMenuItems);
+        setMenu({...menu, menuItems: newMenuItems});
     }
 
     const onItemDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>, itemInd: number) => {
-        const newMenuItems = [...menuItems];
+        let newMenuItems = [...menu.menuItems];
         newMenuItems[itemInd].description = e.target.value;
-        setMenuItems(newMenuItems);
+        setMenu({...menu, menuItems: newMenuItems});
     }
 
     const onImageChange = (imgSrc: string) => {
-        const newMenuItems = [...menuItems];
+        let newMenuItems = [...menu.menuItems];
         newMenuItems[itemInd].image = imgSrc;
-        setMenuItems(newMenuItems);
-        console.log(menuItems);
-        
+        setMenu({...menu, menuItems: newMenuItems});        
     }
 
     if (editState) 
