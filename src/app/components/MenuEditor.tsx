@@ -53,7 +53,7 @@ const MenuEditorContent = () => {
             <div className="fixed top-17 w-screen">
                 <PreviewNavbar/>
             </div>
-            <div className="mt-10">
+            <div className="mt-11">
                 {previewDevice === "laptop" ? 
                 <div className="@container">
                     <Menu1 menu={menu}/>

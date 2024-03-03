@@ -16,7 +16,7 @@ export default function PreviewNavbar() {
                 {/* Device mockup buttons */}
                 <div className="flex">
                     <div className={`w-10 px-3 text-center flex flex-col justify-center ${previewDevice === "laptop" ? "bg-slate-200" : "hover:bg-slate-200"} duration-75`} onClick={() => setPreviewDevice("laptop")}>
-                        <i className="fa-solid fa-laptop my-auto"></i>
+                        <i className="fa-solid fa-laptop my-auto text-black"></i>
                     </div>
                     <div className={`w-10 text-center flex flex-col justify-center ${previewDevice === "phone" ? "bg-slate-200" : "hover:bg-slate-200"} duration-75`} onClick={() => setPreviewDevice("phone")}>
                         <Image className="mx-auto" src="/img/phone-icon.png" width={24} height={24} alt="Phone icon"/>

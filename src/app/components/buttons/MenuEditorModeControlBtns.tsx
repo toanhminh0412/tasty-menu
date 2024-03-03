@@ -39,11 +39,15 @@ export default function MenuEditorModeControlBtns() {
 }
 
 const SaveMenuBtn = () => {
+    const { mode, setMode } = useContext(ModeContext);
     const { menu, setMenu } = useContext(MenuContext);
     const [loading, setLoading] = useState<boolean>(false);
 
     return (
-        <div className="p-2 w-1/3 text-center border-b border-r hover:bg-slate-100 duration-75 font-normal text-slate-500 hover:text-blue-500 cursor-default"
+        <div className={mode === "edit" ? 
+            "p-2 w-1/3 text-center border-b border-r hover:bg-slate-100 duration-75 font-normal text-slate-500 hover:text-blue-500 cursor-default"
+            :
+            "p-3 w-32 text-center border-b border-r hover:bg-slate-100 duration-75 font-normal text-slate-500 hover:text-blue-500 cursor-default"}
             onClick={async () => {
                 setLoading(true);
                 const res = await fetch(`/api/menu/save/${menu._id}`, {
