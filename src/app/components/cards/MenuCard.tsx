@@ -4,7 +4,7 @@ import { Menu } from "@/app/data/interfaces"
 
 export default function MenuCard({ menu } : { menu: Menu }) {
     return (
-        <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <div className="w-[350px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             {/* <Link href="#">
                 <Image className="rounded-t-lg w-full max-h-[300px] object-cover object-center" src="/img/bun-bo-hue.jpg" width={200} height={200} alt="" />
             </Link> */}

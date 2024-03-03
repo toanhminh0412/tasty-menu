@@ -2,7 +2,6 @@
 
 import { useState, createContext, useContext } from "react";
 
-import { SellerInfo, MenuItem } from "../data/interfaces";
 import defaultMenu1 from "../data/defaultMenu1";
 
 import Sidebar from "./Sidebar";
