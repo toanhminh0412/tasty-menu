@@ -17,17 +17,24 @@ export async function POST(req: Request, { params }) {
     await dbConnect();
 
     // User must be the owner of the menu to update it
-    const existingMenu = await Menu.findById(menuId).exec();
+    const updatedMenu = await Menu.findById(menuId).exec();
 
-    if (!existingMenu) {
+    if (!updatedMenu) {
         return Response.json({ error: "Menu not found" }, { status: 404 });
     }
 
-    if (existingMenu.owner !== session.user.email) {
+    if (updatedMenu.owner !== session.user.email) {
         return Response.json({ error: "User must be the owner of the menu to update it" }, { status: 403 });
     }
 
+    // Upload menu images to Firebase Storage if not already uploaded
+    updatedMenu.set(menu);
+    await updatedMenu.uploadImages();
+    // Upload last updated time of menu
+    updatedMenu.lastUpdated = Date.now();
+    console.log(updatedMenu);
+
     // Update the menu in the database
-    await Menu.findByIdAndUpdate(menuId, menu);
+    await updatedMenu.save();
     return Response.json({ message: "Menu saved successfully!" }, { status: 200 });
 }
