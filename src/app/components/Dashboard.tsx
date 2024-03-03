@@ -93,7 +93,7 @@ function DashboardContent() {
                         {/* Loading card with styling similar to MenuCard. Create 4 of them */}
                         <div className="flex flex-row flex-wrap gap-3 w-full">
                             {Array.from({length: 4}).map((_, i) => (
-                                <div className="w-[350px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                                <div key={i} className="w-[350px] bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                                     <div className="animate-pulse rounded-t-lg bg-gray-200 dark:bg-gray-700 h-[200px] w-full"></div>
                                     <div className="p-5">
                                         <div className="animate-pulse h-4 bg-gray-200 dark:bg-gray-700 w-1/2 mb-2"></div>
