@@ -22,7 +22,7 @@ export async function POST(req: Request) {
     const newMenu = new Menu({ ...menu, owner: session.user.email });
     await newMenu.save();
     return Response.json({ 
-        message: "Menu saved successfully!",
+        message: "Menu created successfully!",
         menuId: newMenu._id
      }, { status: 201 });
 }
