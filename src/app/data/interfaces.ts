@@ -14,3 +14,13 @@ export interface MenuItem {
     description: string,
     image: string
 }
+
+export interface Menu {
+    _id: string,
+    owner: string,
+    isPublished: boolean,
+    lastUpdated: Date,
+    templateId: number,
+    sellerInfo: SellerInfo,
+    menuItems: MenuItem[]
+}

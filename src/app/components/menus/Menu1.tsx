@@ -1,7 +1,6 @@
 import Image from "next/image";
 
-import { SellerInfo } from "../MenuEditor";
-import { MenuItem } from "../MenuEditor";
+import { SellerInfo, MenuItem } from "@/app/data/interfaces";
 
 export default function Menu1({ sellerInfo, menuItems }: { sellerInfo: SellerInfo, menuItems: MenuItem[] }) {
     return (
