@@ -1,17 +1,13 @@
 "use client";
 
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { SellerInfoContext, MenuItemsContext, ModeContext } from "../MenuEditor";
 import { displaySuccessMessage } from "../toasts/SuccessMessageToast";
 import { displayErrorMessage } from "../toasts/ErrorMessageToast";
 
 export default function MenuEditorModeControlBtns() {
     const { mode, setMode } = useContext(ModeContext);
-
-    // Save menu to the database
-    const saveMenu = async() => {
-        console.log('Saving menu to the database...');
-    }
+    const menuId = window.location.pathname.split("/").at(-1);
 
     if (mode === "edit")
         return (
@@ -21,11 +17,7 @@ export default function MenuEditorModeControlBtns() {
                     onClick={() => setMode("preview")}>
                     Preview
                 </div>
-                <div 
-                    className="p-2 w-1/3 text-center border-b border-r hover:bg-slate-100 duration-75 font-normal text-slate-500 hover:text-blue-500 cursor-default"
-                    onClick={saveMenu}>
-                    Save
-                </div>
+                <SaveMenuBtn menuId={menuId}/>
                 <div className="p-2 w-1/3 text-center border-b hover:bg-slate-100 duration-75 font-normal text-blue-500 cursor-default">
                     Publish
                 </div>
@@ -39,14 +31,43 @@ export default function MenuEditorModeControlBtns() {
                 onClick={() => setMode("edit")}>
                 Back to editor
             </div>
-            <div 
-                className="p-3 w-32 text-center border-b border-r hover:bg-slate-100 duration-75 font-normal text-slate-500 hover:text-blue-500 cursor-default"
-                onClick={saveMenu}>
-                Save
-            </div>
+            <SaveMenuBtn menuId={menuId}/>
             <div className="p-3 w-32 text-center border-b border-r hover:bg-slate-100 duration-75 font-normal text-blue-500 cursor-default">
                 Publish
             </div>
+        </div>
+    )
+}
+
+const SaveMenuBtn = ({ menuId } : { menuId: undefined|string }) => {
+    const { sellerInfo, setSellerInfo } = useContext(SellerInfoContext);
+    const { menuItems, setMenuItems } = useContext(MenuItemsContext);
+
+
+    const [loading, setLoading] = useState<boolean>(false);
+
+    return (
+        <div className="p-2 w-1/3 text-center border-b border-r hover:bg-slate-100 duration-75 font-normal text-slate-500 hover:text-blue-500 cursor-default"
+            onClick={async () => {
+                setLoading(true);
+                const res = await fetch(`/api/menu/save/${menuId}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ menu: { sellerInfo: sellerInfo, menuItems: menuItems } })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    displaySuccessMessage(data.message);
+                } else {
+                    displayErrorMessage(data.error);
+                }
+
+                setLoading(false);
+            }}>
+            {loading ? "Saving..." : "Save"}
         </div>
     )
 }

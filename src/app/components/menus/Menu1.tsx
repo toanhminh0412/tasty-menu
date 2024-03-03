@@ -43,7 +43,7 @@ export default function Menu1({ sellerInfo, menuItems }: { sellerInfo: SellerInf
                         {item.description}
                     </p>
                 </div>
-                <Image src={item.image} alt="Banh mi image" width={100} height={100} className="rounded-lg object-cover w-[100px] h-[100px]"/>
+                <Image src={item.image} alt={`${item.name} image`} width={100} height={100} className="rounded-lg object-cover w-[100px] h-[100px]"/>
             </div>
             ))}
             </div>
